@@ -1,0 +1,45 @@
+---
+// «Trabajos hechos»: las fotos grandes. Las dos primeras obras a 8 y 4 columnas (la segunda suele ser vertical) y
+// el resto en una fila de 3 o 4 según cuántas haya. Debajo de cada foto, su pie: `tipo` en letra menuda, el
+// `titulo`, la `madera` y el `lugar`, y una frase (`texto`). `trabajos: [{titulo, tipo, lugar, madera, texto, imagen}]`.
+// Sin foto, la obra sale solo con su pie. Sin trabajos, no se pinta.
+import { seccion } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const obras = (s?.trabajos ?? []).filter((t) => t && t.titulo);
+const lead = obras.slice(0, 2);
+const resto = obras.slice(2);
+const cols = resto.length === 4 || resto.length >= 7 ? 4 : resto.length === 2 ? 2 : 3;
+const dato = (t: { madera?: string; lugar?: string }) => [t.madera, t.lugar].map((x) => String(x ?? '').trim()).filter(Boolean).join(', en ');
+---
+
+{
+  s && obras.length > 0 && (
+    <Banda id={Astro.props.id}>
+      <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+      <div class="obras">
+        {[lead, resto].filter((g) => g.length > 0).map((grupo, gi) => (
+          <ul class:list={['obras-fila', gi === 0 ? 'obras-fila--lead' : 'obras-fila--resto', `obras-fila--${grupo.length}`]} style={gi === 1 ? `--cols:${cols}` : undefined}>
+            {grupo.map((t) => (
+              <li class="obra">
+                {t.imagen && (
+                  <div class="foto">
+                    <Imagen src={t.imagen} alt={altFicha(t)} ancho={1280} alto={960} />
+                  </div>
+                )}
+                {t.tipo && <p class="obra-tipo menuda">{t.tipo}</p>}
+                <h3>{t.titulo}</h3>
+                {dato(t) && <p class="obra-datos menuda">{dato(t)}</p>}
+                {t.texto && <p class="obra-texto">{t.texto}</p>}
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </Banda>
+  )
+}

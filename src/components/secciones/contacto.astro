@@ -1,0 +1,58 @@
+---
+// «Contacto»: mitad texto y mitad foto a sangre (`imagen`, a la derecha). Titular, frase, el teléfono grande en
+// cifra de titulares y los datos de `contacto` en filas con filete (dirección con enlace al mapa, horario, correo y
+// WhatsApp) y las redes. Si la sección `presupuesto` no está activa, a la derecha va el formulario corto en un pozo
+// de arena en lugar de la foto.
+import { seccion, site, tel, mapa, whatsapp } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const redes = Object.entries(site.redes).filter(([, url]) => url);
+const conFormulario = !seccion('presupuesto');
+const lado = conFormulario ? 'formulario' : s?.imagen ? 'foto' : '';
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class:list={[lado ? 'mitades' : 'banda']}>
+      <div class:list={[lado ? 'mitad-texto' : 'contenedor']}>
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+        {c.telefono && <a class="telefono-grande" href={tel(c.telefono)}>{c.telefono}</a>}
+        {(c.direccion || c.horario || c.email || c.whatsapp) && (
+          <ul class="datos">
+            {c.direccion && (
+              <li><p class="menuda">Dónde estamos</p><p class="datos-valor"><a href={mapa(c.direccion)} rel="noopener" target="_blank">{c.direccion}</a></p></li>
+            )}
+            {c.horario && <li><p class="menuda">Horario</p><p class="datos-valor">{c.horario}</p></li>}
+            {c.email && <li><p class="menuda">Correo</p><p class="datos-valor"><a href={`mailto:${c.email}`}>{c.email}</a></p></li>}
+            {c.whatsapp && (
+              <li><p class="menuda">WhatsApp</p><p class="datos-valor"><a href={whatsapp(c.whatsapp)} rel="noopener" target="_blank">Escríbenos por WhatsApp</a></p></li>
+            )}
+          </ul>
+        )}
+        {redes.length > 0 && (
+          <ul class="redes">
+            {redes.map(([red, url]) => (
+              <li><a href={url} rel="noopener" target="_blank" aria-label={red}><Icono nombre={red} tam={20} /></a></li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {lado === 'foto' && (
+        <div class="mitad-foto foto">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1280} alto={960} />
+        </div>
+      )}
+      {lado === 'formulario' && (
+        <div class="mitad-pozo">
+          <FormularioContacto modelo="corto" boton="Pedir presupuesto" prefijo="contacto" />
+        </div>
+      )}
+    </section>
+  )
+}

@@ -1,0 +1,64 @@
+---
+// «Cómo se encarga» (la firma de la plantilla): el encargo dibujado como una escala de semanas, en la banda de arena.
+// `items: [{titulo, texto, semanas}]`: `semanas` es «0», «1» o «2-6» (desde la visita). Un número suelto es una
+// marca de tinta; un tramo, una barra de arena; el último paso (la entrega) es la línea añil. Las semanas de la
+// cabecera (en DM Mono) llegan hasta el número más alto. Si ningún paso trae semanas que se entiendan, los pasos
+// salen en filas numeradas. `nota` debajo. Sin pasos, no se pinta.
+import { seccion, semanas } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const pasos = (s?.items ?? []).filter((it) => it && it.titulo).map((it) => ({ ...it, rango: semanas(it.semanas) }));
+const conRango = pasos.filter((p) => p.rango);
+const n = conRango.length ? Math.min(Math.max(...conRango.map((p) => p.rango![1])) + 1, 27) : 0;
+const ultimo = pasos.length - 1;
+const marcas = Array.from({ length: n }, (_, i) => i);
+---
+
+{
+  s && pasos.length > 0 && (
+    <Banda id={Astro.props.id} color="arena">
+      <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+      {conRango.length > 0 ? (
+        <div class="escala" style={`--n:${n}`}>
+          <div class="escala-cabeza" aria-hidden="true">
+            <p class="escala-titulo menuda">Semanas</p>
+            <div class="escala-marcas cifra">
+              {marcas.map((m) => <span>{m}</span>)}
+            </div>
+          </div>
+          <ol>
+            {pasos.map((p, i) => {
+              const r = p.rango;
+              const col = r ? `grid-column:${Math.min(r[0], n - 1) + 1} / ${Math.min(r[1], n - 1) + 2}` : '';
+              const clase = !r ? '' : i === ultimo ? 'escala-entrega' : r[0] === r[1] ? 'escala-marca' : 'escala-barra';
+              const cuando = !r ? '' : r[0] === r[1] ? `semana ${r[0]}` : `semanas ${r[0]} a ${r[1]}`;
+              return (
+                <li class="escala-fila">
+                  <div class="escala-paso">
+                    <h3>{p.titulo}{cuando && <span class="sr-only">, {cuando}</span>}</h3>
+                    {p.texto && <p>{p.texto}</p>}
+                  </div>
+                  <div class="escala-pista" aria-hidden="true">
+                    {r && <span class={clase} style={col} />}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      ) : (
+        <ol class="pasos">
+          {pasos.map((p) => (
+            <li>
+              <h3>{p.titulo}</h3>
+              {p.texto && <p>{p.texto}</p>}
+            </li>
+          ))}
+        </ol>
+      )}
+      {s.nota && <p class="escala-nota menuda">{s.nota}</p>}
+    </Banda>
+  )
+}

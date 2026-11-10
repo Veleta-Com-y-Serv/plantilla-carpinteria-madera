@@ -1,0 +1,157 @@
+---
+// Página de una zona con `texto` (src/lib/paginas.ts, sección `zonas`): /zonas/<slug>/.
+// Diseño «libro de muestras»: migas y «Carpintería a medida en <zona>» (`titulo_pagina` de la sección, con {zona})
+// con la entrada (`texto_pagina`) y los botones; el texto propio de la zona (con la foto de la zona o de la sección
+// si la hay); lo que hacemos en filas con filete (las piezas con ficha, enlazadas); los trabajos cuyo `lugar` nombra
+// la zona; banda de añil para pedir presupuesto y las otras zonas con página.
+import Base from '../../layouts/Base.astro';
+import Imagen from '../../components/ui/Imagen.astro';
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import { enlaceDe, introZona, resumen, tituloZona, trabajosEn, zonasConPagina } from '../../lib/paginas';
+import type { Zona } from '../../lib/paginas';
+import { jsonLdMigas, jsonLdZona, urlBase } from '../../lib/seo';
+import { enlace, rutaDeSeccion } from '../../lib/multipagina';
+
+export function getStaticPaths() {
+  return zonasConPagina().map((z) => ({ params: { slug: z.slug }, props: { z } }));
+}
+
+interface Props { z: Zona }
+const { z } = Astro.props;
+const base = urlBase(Astro.site);
+const titulo = tituloZona(z);
+const intro = introZona(z);
+const nombreSeccion = String(z.seccion.antetitulo || z.seccion.titulo || 'Zonas').trim();
+const migas = [
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: nombreSeccion, ruta: rutaDeSeccion(z.idSeccion) },
+  { nombre: z.nombre, ruta: z.url },
+];
+const c = site.contacto;
+const foto = z.imagen || String(z.seccion.imagen || '');
+const servicios = seccion('servicios');
+const piezas = servicios ? servicios.items.filter((it) => it?.titulo) : [];
+const trabajos = trabajosEn(z.nombre).slice(0, 3);
+const presupuesto = seccion('presupuesto') ? enlace('/#presupuesto') : site.boton_cabecera?.url || enlace('/#contacto');
+const textoPresupuesto = site.boton_cabecera?.texto || 'Pedir presupuesto';
+const wa = whatsapp(c.whatsapp, `Hola, quiero presupuesto para un trabajo en ${z.nombre}`);
+const otras = zonasConPagina().filter((x) => x !== z);
+const conCifra = (p?: string) => !!p && /\d/.test(p);
+---
+
+<Base titulo={titulo} descripcion={resumen(z.texto[0] ?? intro)} imagen={foto} ld={[jsonLdMigas(base, migas), jsonLdZona(base, z)]}>
+  <section class="banda zona-cabeza">
+    <div class="contenedor">
+      <nav aria-label="Migas de pan" class="migas">
+        <ol>
+          {migas.map((m, i) => (
+            <li>{i < migas.length - 1 ? <a href={m.ruta}>{m.nombre}</a> : <span aria-current="page">{m.nombre}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+      <div class="zona-intro">
+        <p class="antetitulo">{z.nombre}</p>
+        <h1 class="zona-titulo">{titulo}</h1>
+        {intro && <p class="entrada mt-5">{intro}</p>}
+        <div class="botones">
+          <a class="btn" href={presupuesto}>{textoPresupuesto}</a>
+          {c.telefono && <a class="btn-sec" href={tel(c.telefono)}>Llamar al {c.telefono}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class:list={[foto ? 'mitades' : 'banda banda--sin-relleno']}>
+    <div class:list={[foto ? 'mitad-texto' : 'contenedor pb-16 lg:pb-24']}>
+      <div class="zona-texto">
+        {z.texto.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    {foto && (
+      <div class="mitad-foto foto">
+        <Imagen src={foto} alt={titulo} ancho={1280} alto={960} />
+      </div>
+    )}
+  </section>
+
+  {piezas.length > 0 && (
+    <section class="banda">
+      <div class="contenedor">
+        <div class="titular mb-10">
+          {servicios?.antetitulo && <p class="antetitulo">{servicios.antetitulo}</p>}
+          <h2 class="titulo-seccion">Qué hacemos en {z.nombre}</h2>
+        </div>
+        <ul class="indice">
+          {piezas.map((it) => (
+            <li class="indice-fila">
+              <h3 class="indice-nombre">{enlaceDe(it) ? <a href={enlaceDe(it)}>{it.titulo}</a> : it.titulo}</h3>
+              {it.texto && <p class="indice-texto">{it.texto}</p>}
+              <span />
+              {it.precio && <p class:list={['indice-precio', { 'indice-precio--texto': !conCifra(it.precio) }]}>{it.precio}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {trabajos.length > 0 && (
+    <section class="banda">
+      <div class="contenedor">
+        <div class="titular mb-10">
+          <p class="antetitulo">Trabajos hechos</p>
+          <h2 class="titulo-seccion">Piezas montadas en {z.nombre}</h2>
+        </div>
+        <ul class="obras-fila obras-fila--resto" style="--cols:3">
+          {trabajos.map((t) => (
+            <li class="obra">
+              {t.imagen && <div class="foto"><Imagen src={String(t.imagen)} alt={String(t.titulo)} ancho={1280} alto={960} /></div>}
+              {t.tipo && <p class="obra-tipo menuda">{t.tipo}</p>}
+              <h3>{t.titulo}</h3>
+              {t.texto && <p class="obra-texto">{t.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="banda banda--anil">
+    <div class="contenedor zona-final">
+      <div>
+        <p class="antetitulo">Presupuesto sin compromiso</p>
+        <h2 class="titulo-seccion">¿Tienes una pieza en mente en {z.nombre}?</h2>
+        <p class="entrada mt-4">Vamos a medir y te dejamos el precio cerrado por escrito.</p>
+      </div>
+      <div class="botones">
+        <a class="btn" href={presupuesto}>{textoPresupuesto}</a>
+        {wa && <a class="btn-sec" href={wa} target="_blank" rel="noopener">WhatsApp</a>}
+      </div>
+    </div>
+  </section>
+
+  {otras.length > 0 && (
+    <section class="banda">
+      <div class="contenedor zonas-rejilla">
+        <div class="titular"><h2 class="titulo-seccion">También montamos en</h2></div>
+        <ul class="lugares">
+          {otras.map((o) => <li><a class="lugar-nombre" href={o.url}>{o.nombre}</a></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .zona-cabeza { padding-top: clamp(1rem, 2vw, 2rem); }
+  .zona-intro { container-type: inline-size; max-width: 56rem; padding-top: clamp(1rem, 3vw, 2.5rem); }
+  .zona-titulo { margin-top: 1rem; font-size: min(4.5rem, 12.4cqi); line-height: 1; max-width: 12em; }
+  .zona-texto { max-width: 40rem; font-size: 1.125rem; line-height: 1.7; border-top: 2px solid var(--tinta); padding-top: 1.5rem; }
+  .zona-texto p + p { margin-top: 1rem; }
+  .zona-final { display: grid; gap: 1.5rem; align-items: end; }
+  .zona-final .botones { margin-top: 0; }
+  @media (min-width: 60rem) {
+    .zona-final { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .zona-final .botones { justify-content: flex-end; }
+  }
+</style>

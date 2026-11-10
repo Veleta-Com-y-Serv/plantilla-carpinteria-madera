@@ -1,0 +1,45 @@
+---
+// «El taller»: mitad texto y mitad foto a sangre (`imagen`, a la derecha). El año (`desde`, «1979») en cifra de
+// titulares, el titular, los párrafos (`texto`, separados por una línea en blanco) y los `items: [{titulo, texto}]`
+// como filas con filete (lo que nos importa). Sin foto, todo en una columna. Sin nada que contar, no se pinta.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const desde = String(s?.desde ?? '').trim();
+const items = (s?.items ?? []).filter((it) => it && it.titulo);
+const hay = s && (s.titulo || s.texto || items.length > 0 || desde);
+---
+
+{
+  hay && s && (
+    <section id={Astro.props.id} class:list={[s.imagen ? 'mitades' : 'banda']}>
+      <div class:list={[s.imagen ? 'mitad-texto' : 'contenedor']}>
+        {desde && (
+          <p class="desde"><span class="menuda">Desde</span><span class="desde-cifra">{desde}</span></p>
+        )}
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} nivel={Astro.props.primera ? 1 : 2} />
+        {parrafos(s.texto).length > 0 && (
+          <div class="parrafos">{parrafos(s.texto).map((p) => <p>{p}</p>)}</div>
+        )}
+        {items.length > 0 && (
+          <ul class="filas">
+            {items.map((it) => (
+              <li>
+                <p class="filas-titulo">{it.titulo}</p>
+                {it.texto && <p class="filas-texto">{it.texto}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {s.imagen && (
+        <div class="mitad-foto foto">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={960} alto={1280} />
+        </div>
+      )}
+    </section>
+  )
+}

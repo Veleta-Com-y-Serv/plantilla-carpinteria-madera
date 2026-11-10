@@ -1,0 +1,51 @@
+---
+// «Las maderas»: la carta de maderas del taller como la hoja de un libro de muestras. A la izquierda la foto
+// (`imagen`, vertical, fija al bajar en escritorio); a la derecha el titular y la tabla con filetes:
+// `maderas: [{nombre, uso, caracter}]` (el nombre en Libre Caslon Display; en móvil, cada fila es un bloque con sus
+// etiquetas). Sin foto, la tabla ocupa todo el ancho. Sin maderas, no se pinta.
+import { seccion } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const maderas = (s?.maderas ?? []).filter((m) => m && m.nombre);
+const hayUso = maderas.some((m) => m.uso);
+const hayCaracter = maderas.some((m) => m.caracter);
+---
+
+{
+  s && maderas.length > 0 && (
+    <Banda id={Astro.props.id}>
+      <div class:list={['maderas-rejilla', { 'maderas-rejilla--sin-foto': !s.imagen }]}>
+        {s.imagen && (
+          <div class="foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={960} alto={1280} />
+          </div>
+        )}
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+          <table class="muestrario">
+            <thead>
+              <tr>
+                <th scope="col">Madera</th>
+                {hayUso && <th scope="col">Para qué la usamos</th>}
+                {hayCaracter && <th scope="col">Cómo es</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {maderas.map((m) => (
+                <tr>
+                  <td>{m.nombre}</td>
+                  {hayUso && <td data-etiqueta="Para qué la usamos">{m.uso}</td>}
+                  {hayCaracter && <td data-etiqueta="Cómo es">{m.caracter}</td>}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Banda>
+  )
+}

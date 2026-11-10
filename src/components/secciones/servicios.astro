@@ -1,0 +1,43 @@
+---
+// «Lo que hacemos»: el índice del taller como un libro de muestras. Cabeza partida y, debajo de un filete de tinta,
+// una fila por pieza (`items: [{titulo, texto, madera, plazo, precio, imagen, imagenes, detalle}]`): el nombre en
+// Libre Caslon Display, una frase, la madera y el plazo como datos, y el precio de partida en cifra de titulares.
+// Sin precio no hay precio; «Consultar» y otros textos sin cifra van en letra normal. Las piezas con `detalle`
+// tienen página propia (/carpinteria/<slug>/) y su nombre enlaza a ella. Sin piezas, no se pinta.
+import { seccion, externo } from '../../data/site';
+import { enlaceDe } from '../../lib/paginas';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const piezas = (s?.items ?? []).filter((it) => it && it.titulo);
+const conCifra = (p?: string) => !!p && /\d/.test(p);
+---
+
+{
+  s && piezas.length > 0 && (
+    <Banda id={Astro.props.id}>
+      <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+      <ul class="indice">
+        {piezas.map((it) => (
+          <li class="indice-fila">
+            <h3 class="indice-nombre">{enlaceDe(it) ? <a href={enlaceDe(it)}>{it.titulo}</a> : it.titulo}</h3>
+            {it.texto && <p class="indice-texto">{it.texto}</p>}
+            {(it.madera || it.plazo) && (
+              <dl class="indice-datos">
+                {it.madera && <div><dt>Madera</dt><dd>{it.madera}</dd></div>}
+                {it.plazo && <div><dt>Plazo</dt><dd>{it.plazo}</dd></div>}
+              </dl>
+            )}
+            {it.precio && <p class:list={['indice-precio', { 'indice-precio--texto': !conCifra(it.precio) }]}>{it.precio}</p>}
+          </li>
+        ))}
+      </ul>
+      {s.cta?.url && (
+        <div class="indice-pie">
+          <a class="btn" href={s.cta.url} {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>{s.cta.texto}</a>
+        </div>
+      )}
+    </Banda>
+  )
+}

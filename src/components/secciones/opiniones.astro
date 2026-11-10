@@ -1,0 +1,35 @@
+---
+// «Opiniones»: la primera opinión como frase grande en Libre Caslon Display y el autor en letra menuda; las demás en
+// columnas debajo de un filete de tinta. `testimonios: [{texto, autor, nota}]`. No inventes opiniones: sin
+// testimonios, no se pinta.
+import { seccion } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const lista = (s?.testimonios ?? []).filter((t) => t && t.texto);
+const [primera, ...resto] = lista;
+const pie = (t: { autor?: string; nota?: string }) => [t.autor, t.nota].filter(Boolean).join(', ');
+---
+
+{
+  s && primera && (
+    <Banda id={Astro.props.id}>
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} nivel={Astro.props.primera ? 1 : 2} class="mb-10 lg:mb-14" />
+      <figure class="cita">
+        <blockquote>«{primera.texto}»</blockquote>
+        {pie(primera) && <figcaption class="cita-autor menuda">{pie(primera)}</figcaption>}
+      </figure>
+      {resto.length > 0 && (
+        <ul class="opiniones-resto">
+          {resto.map((t) => (
+            <li>
+              <p class="opinion-texto">«{t.texto}»</p>
+              {pie(t) && <p class="opinion-autor menuda">{pie(t)}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Banda>
+  )
+}

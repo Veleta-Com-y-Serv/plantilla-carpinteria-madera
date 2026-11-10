@@ -1,0 +1,41 @@
+---
+// «Preguntas frecuentes»: titular a la izquierda (fijo al bajar en escritorio) con el teléfono y el WhatsApp, y las
+// preguntas en filas con filete (`details/summary`, signo más dibujado con dos filetes). Sin preguntas, no se pinta.
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const H = Astro.props.primera ? 'h1' : 'h2';
+---
+
+{
+  s && s.preguntas.length > 0 && (
+    <Banda id={Astro.props.id}>
+      <div class="preguntas-rejilla">
+        <div class="titular">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <H class="titulo-seccion">{s.titulo}</H>}
+          {s.texto && <p class="entrada">{s.texto}</p>}
+          {(c.telefono || c.whatsapp) && (
+            <div class="preguntas-vias">
+              {c.telefono && <a class="btn-sec" href={tel(c.telefono)}>Llamar al {c.telefono}</a>}
+              {c.whatsapp && <a class="btn-sec" href={whatsapp(c.whatsapp)} rel="noopener" target="_blank">Preguntar por WhatsApp</a>}
+            </div>
+          )}
+        </div>
+        <div>
+          {s.preguntas.map((p) => (
+            <details class="faq">
+              <summary>
+                <span>{p.pregunta}</span>
+                <span class="faq-signo" aria-hidden="true" />
+              </summary>
+              {p.respuesta && <p class="faq-respuesta">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </Banda>
+  )
+}

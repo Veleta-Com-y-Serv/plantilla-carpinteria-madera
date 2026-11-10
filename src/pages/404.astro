@@ -1,0 +1,22 @@
+---
+// Página no encontrada con el diseño de la plantilla: papel, un 404 enorme en Libre Caslon Display y un filete de tinta.
+import Base from '../layouts/Base.astro';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda error">
+    <div class="contenedor">
+      <p class="error-cifra" aria-hidden="true">404</p>
+      <div class="error-texto">
+        <h1 class="titulo-seccion">Esta pieza no está en el taller</h1>
+        <p class="entrada mt-5">Puede que el enlace esté mal o que la página se haya movido.</p>
+        <p class="botones"><a class="btn" href="/">Volver al inicio</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .error { min-height: 70svh; display: flex; align-items: center; }
+  .error-texto { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--tinta); max-width: 40rem; }
+</style>

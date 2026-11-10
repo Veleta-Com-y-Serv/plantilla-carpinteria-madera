@@ -1,0 +1,45 @@
+---
+// «Presupuesto»: la única banda de añil de la página. A la izquierda, titular, frase, los `items: [{titulo, texto}]`
+// como pasos numerados con filetes, el teléfono grande y la `nota`; a la derecha, el formulario corto (nombre,
+// teléfono y qué pieza necesitas) con los campos de papel y el enlace de WhatsApp. `boton_formulario` opcional.
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const pasos = (s?.items ?? []).filter((it) => it && it.titulo);
+const boton = String(s?.boton_formulario ?? '').trim() || 'Pedir presupuesto';
+const wa = whatsapp(c.whatsapp, `Hola, quiero pedir presupuesto a ${site.nombre}`);
+---
+
+{
+  s && (
+    <Banda id={Astro.props.id} color="anil">
+      <div class="presupuesto-rejilla">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+          {pasos.length > 0 && (
+            <ol class="presupuesto-pasos">
+              {pasos.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ol>
+          )}
+          {c.telefono && <a class="telefono-grande" href={tel(c.telefono)}>{c.telefono}</a>}
+          {s.nota && <p class="nota menuda">{s.nota}</p>}
+        </div>
+        <div>
+          <FormularioContacto modelo="corto" boton={boton} prefijo="presupuesto" />
+          {wa && (
+            <p class="mt-6"><a class="btn-sec" href={wa} rel="noopener" target="_blank">Mandar fotos por WhatsApp</a></p>
+          )}
+        </div>
+      </div>
+    </Banda>
+  )
+}

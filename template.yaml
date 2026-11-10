@@ -1,0 +1,121 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: carpinteria-madera
+nombre: Carpintería y ebanistería
+descripcion: "Web de taller para carpinteros y ebanistas: piezas a medida, trabajos con fotos grandes y presupuesto."
+sectores:
+  - { id: carpinteria, nombre: Carpintería }
+  - { id: ebanisteria, nombre: Ebanistería }
+  - { id: muebles-a-medida, nombre: Muebles a medida }
+  - { id: carpinteria-exterior, nombre: Puertas y ventanas de madera }
+  - { id: restauracion-muebles, nombre: Restauración de muebles }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: servicios, nombre: Lo que hacemos }
+  - { id: trabajos, nombre: Trabajos hechos }
+  - { id: proceso, nombre: Cómo se encarga }
+  - { id: maderas, nombre: Las maderas }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: taller, nombre: El taller }
+  - { id: zonas, nombre: Dónde montamos }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: presupuesto, nombre: Presupuesto }
+  - { id: contacto, nombre: Contacto }
+estilo: loom
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-carpinteria-madera.noexpertise.com
+activa: true
+orden: 710
+
+# Páginas propias (docs/plantillas.md § Fichas por elemento y páginas por zona). Espejo en src/data/fichas.ts.
+# Cada pieza de «Lo que hacemos» con `detalle` tiene su página en /carpinteria/<slug>/; cada zona con `texto`, en /zonas/<slug>/.
+fichas:
+  - { lista: servicios, campo: items, ruta: carpinteria, nombre: Servicio, tipo: Service }
+zonas:
+  ruta: zonas
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, los trabajos hechos).
+paginas:
+  - { ruta: lo-que-hacemos, titulo: Lo que hacemos, secciones: "servicios; proceso; maderas" }
+  - { ruta: el-taller, titulo: El taller, secciones: "opiniones; taller; zonas" }
+  - { ruta: presupuesto, titulo: Presupuesto y contacto, secciones: "preguntas; presupuesto; contacto" }
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu taller"
+    pregunta: "¿Cómo se llama tu carpintería y qué piezas hacéis sobre todo?"
+    ayuda: "Por ejemplo: cocinas y armarios a medida, puertas y ventanas de madera, escaleras o restauración de muebles, y en qué pueblo o ciudad está el taller."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está el taller y cómo te pueden llamar o escribir para pedir presupuesto?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Si usas WhatsApp, ponlo: muchos te mandarán fotos y medidas del hueco por ahí."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: servicios
+    titulo: "Lo que hacéis"
+    pregunta: "¿Qué trabajos hacéis a medida? Uno por línea, con la madera que soléis usar, cuánto tardáis y un precio de partida si quieres decirlo."
+    ayuda: "Por ejemplo: «Cocinas a medida, en roble o cerezo, de 6 a 8 semanas, desde 6.500 €». Si no quieres poner precio, déjalo: no saldrá."
+    tipo: lista
+    campos: [secciones.servicios.items]
+  - id: trabajos
+    titulo: "Trabajos hechos"
+    pregunta: "Cuéntame algunos encargos que hayáis terminado: qué pieza era, de qué madera y en qué pueblo. Uno por línea."
+    ayuda: "Por ejemplo: «Escalera de pino melis para una casa de piedra en Valderrobres». Las fotos las pones en el paso de fotos o luego en Contenido."
+    tipo: lista
+    campos: [secciones.trabajos.trabajos]
+  - id: proceso
+    titulo: "Cómo se encarga"
+    pregunta: "¿Cómo es un encargo con vosotros, desde que vais a medir hasta que lo montáis? Dime los pasos y en qué semana llega cada uno."
+    ayuda: "Por ejemplo: visita y medida la semana 0, dibujo y presupuesto la semana 1, taller de la 2 a la 6 y montaje la semana 7. Con las semanas se dibuja una escala en tu web."
+    tipo: texto
+    campos: [secciones.proceso.titulo, secciones.proceso.texto, secciones.proceso.items, secciones.proceso.nota]
+  - id: maderas
+    titulo: "Vuestras maderas"
+    pregunta: "¿Con qué maderas trabajáis más? Una por línea: para qué la usáis y cómo es."
+    ayuda: "Por ejemplo: «Roble, para cocinas y puertas, dura y de veta marcada»; «Pino melis, para escaleras y vigas, aguanta la intemperie»."
+    tipo: lista
+    campos: [secciones.maderas.maderas]
+  - id: taller
+    titulo: "Vuestra historia"
+    pregunta: "¿Desde cuándo tenéis el taller, quién trabaja en él y cómo hacéis las cosas?"
+    ayuda: "Por ejemplo: lo abrió vuestro padre en 1979, ahora estáis los dos hermanos, secáis la madera en el taller y los ensambles se hacen a mano."
+    tipo: texto
+    campos: [secciones.taller.titulo, secciones.taller.desde, secciones.taller.texto, secciones.taller.items]
+  - id: zonas
+    titulo: "Dónde montáis"
+    pregunta: "¿En qué pueblos, comarcas o barrios vais a medir y a montar?"
+    ayuda: "Por ejemplo: Alcañiz, Caspe, Calanda y todo el Bajo Aragón. Si vais más lejos con algún coste, dilo."
+    tipo: texto
+    campos: [secciones.zonas.titulo, secciones.zonas.texto, secciones.zonas.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan siempre antes de encargar una pieza? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Por ejemplo: cuánto cuesta un armario empotrado, cuánto se tarda, si vais a medir gratis, si restauráis muebles antiguos o si trabajáis solo madera maciza."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: presupuesto
+    titulo: "Pedir presupuesto"
+    pregunta: "¿Cómo pide presupuesto un cliente y qué pasa después? Cuéntamelo en dos o tres pasos."
+    ayuda: "Por ejemplo: te escriben con fotos del hueco, vais a medir sin coste y en una semana le dais el precio cerrado por escrito."
+    tipo: texto
+    campos: [secciones.presupuesto.titulo, secciones.presupuesto.texto, secciones.presupuesto.items, secciones.presupuesto.nota]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada (una pieza terminada en el taller o ya montada queda muy bien) y las del taller, las maderas y el contacto."
+    ayuda: "Sube las tuyas o elige una del banco. Las fotos con luz de ventana y de cerca, donde se vea la veta, son las que más venden. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.taller.imagen, secciones.maderas.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

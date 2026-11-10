@@ -1,0 +1,34 @@
+---
+// «Dónde montamos»: titular a la izquierda y las localidades (`items: [{titulo, texto}]`) en filas con filete, el
+// nombre en Libre Caslon Display. Cada localidad con `texto` tiene su página (/zonas/<slug>/) y su nombre enlaza a
+// ella. `titulo_pagina` y `texto_pagina` son el título y la entrada de esas páginas ({zona}, {negocio}). Las
+// primeras 8 salen también en el pie. Sin localidades, no se pinta.
+import { seccion } from '../../data/site';
+import { enlaceDe } from '../../lib/paginas';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string; primera?: boolean }
+const s = seccion(Astro.props.id);
+const lugares = (s?.items ?? []).filter((it) => it && it.titulo);
+---
+
+{
+  s && lugares.length > 0 && (
+    <Banda id={Astro.props.id}>
+      <div class="zonas-rejilla">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} nivel={Astro.props.primera ? 1 : 2} />
+        <ul class="lugares">
+          {lugares.map((it) => (
+            <li>
+              {enlaceDe(it) ? (
+                <a class="lugar-nombre" href={enlaceDe(it)}>{it.titulo}</a>
+              ) : (
+                <span class="lugar-nombre">{it.titulo}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Banda>
+  )
+}

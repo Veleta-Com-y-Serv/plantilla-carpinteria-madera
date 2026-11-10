@@ -1,0 +1,242 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Una sola página: el menú apunta a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios y cifras, siempre entre comillas.
+nombre: Carpintería Hermanos Lahoz
+eslogan: "Carpintería y ebanistería en Alcañiz. Hacemos a medida, en madera maciza, lo que tu casa necesita."
+sector: carpinteria
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = el nombre en letra de titulares.
+colores:
+  primario: "#37271d"   # nogal oscuro: el pie y la cabecera de las páginas propias
+  acento: "#1d3172"     # añil: botones, la banda de presupuesto, la línea de entrega y el foco
+  fondo: "#f4f0e6"      # papel crudo
+  texto: "#1d1713"      # tinta
+contacto:
+  telefono: "978 000 000"
+  email: hola@carpinterialahoz.es
+  direccion: "Polígono La Estación, nave 7, 44600 Alcañiz (Teruel)"
+  horario: "Lunes a viernes, de 8:00 a 14:00 y de 16:00 a 19:00. Sábados, visitas con cita."
+  whatsapp: "+34 678 000 000"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Lo que hacemos, url: "/#servicios" }
+  - { texto: Trabajos, url: "/#trabajos" }
+  - { texto: Cómo se encarga, url: "/#proceso" }
+  - { texto: El taller, url: "/#taller" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pide presupuesto, url: "/#presupuesto" }
+seo:
+  titulo: Carpintería a medida en Alcañiz · Hermanos Lahoz
+  descripcion: "Carpintería y ebanistería en Alcañiz: cocinas, armarios empotrados, puertas, escaleras y restauración de muebles en madera maciza."
+  tipo: HomeAndConstructionBusiness
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Carpintería y ebanistería en Alcañiz
+    titulo: Madera maciza, hecha a tu medida
+    texto: "Cocinas, armarios, puertas y escaleras que dibujamos, hacemos y montamos nosotros."
+    imagen: /fotos/hero.jpg
+    pie_foto: "Aparador de roble con cajones de cola de milano, recién salido del banco."
+    cta: { texto: Pide presupuesto, url: "/#presupuesto" }
+    cta_secundario: { texto: Ver trabajos hechos, url: "/#trabajos" }
+    items:
+      - { titulo: Taller propio en Alcañiz }
+      - { titulo: Madera maciza seleccionada }
+      - { titulo: Montaje en tu casa incluido }
+
+  servicios:
+    activa: true
+    antetitulo: Lo que hacemos
+    titulo: Piezas a medida, de la cocina a la escalera
+    texto: "Todo sale de nuestro taller. Te decimos la madera, el plazo y un precio de partida; el precio cerrado, después de medir."
+    cta: { texto: Pide presupuesto, url: "/#presupuesto" }
+    items:
+      - titulo: Cocinas a medida
+        texto: "Muebles de madera maciza que aprovechan cada hueco, con la encimera y los herrajes que elijas."
+        madera: "Roble, cerezo o pino lacado"
+        plazo: "6 a 8 semanas"
+        precio: "desde 6.500 €"
+        imagen: /fotos/trabajo-cocina.jpg
+        imagenes: "/fotos/contacto.jpg; /fotos/maderas.jpg"
+        detalle: |
+          Una cocina de madera maciza se hace para durar toda la vida de la casa. Empezamos en tu cocina: medimos paredes, tomas y desagües, y te preguntamos cómo cocináis y qué os estorba hoy. Con eso dibujamos la distribución y te enseñamos muestras de madera y de acabado antes de cortar nada.
+
+          En el taller hacemos los cascos, los frentes y los cajones, con ensambles de verdad y herrajes de cierre suave. Puedes elegir frentes lisos o de cuarterones, al aceite o lacados, y la encimera que mejor te encaje: piedra, madera o compacto.
+
+          El montaje lo hacemos nosotros, con fontanero y electricista de confianza si hace falta. Protegemos la casa, nos llevamos los restos y al final repasamos contigo puertas y cajones hasta que todo cierre como debe.
+      - titulo: Armarios empotrados y vestidores
+        texto: "Del suelo al techo, por dentro como tú lo uses: baldas, cajones, barras y zapateros."
+        madera: "Roble, pino o tablero rechapado"
+        plazo: "4 a 5 semanas"
+        precio: "desde 1.200 €"
+        imagen: /fotos/trabajo-armario.jpg
+        imagenes: ""
+        detalle: |
+          Un armario empotrado bien hecho gana sitio donde parece que no lo hay: bajo una escalera, en una buhardilla o en ese rincón del pasillo. Medimos el hueco con cuidado, porque en las casas de pueblo ninguna pared está a escuadra, y lo ajustamos en obra para que no queden rendijas.
+
+          Por dentro lo organizamos contigo: cuántas barras, qué altura para los abrigos, cajones con guías de extracción total, zapatero o baldas para mantas. Por fuera, puertas abatibles o correderas, lisas o con molduras, al aceite, barnizadas o lacadas en el color de la pared.
+
+          Lo fabricamos en el taller y lo montamos en uno o dos días, según el tamaño. Dejamos la habitación limpia y te explicamos cómo regular las puertas si con el tiempo hiciera falta.
+      - titulo: Puertas y ventanas de madera
+        texto: "De entrada, de paso y ventanas con contraventana, también copiadas de las antiguas de la casa."
+        madera: "Castaño, roble o pino melis"
+        plazo: "5 a 7 semanas"
+        precio: "Consultar"
+        imagen: /fotos/trabajo-ventanas.jpg
+        imagenes: ""
+        detalle: |
+          En las casas de piedra del Bajo Aragón la carpintería de fuera es parte de la fachada. Hacemos puertas de entrada macizas, con clavos de forja o lisas, y ventanas de madera con su contraventana, nuevas o copiadas de las que ya tenía la casa, para que encajen con el resto del pueblo.
+
+          Usamos madera bien seca y con el doble acristalamiento y los herrajes de ahora, así que cierran bien, aíslan y no dejan pasar el aire. Te aconsejamos el acabado según la orientación: lasur que deja ver la veta o pintura en el color tradicional.
+
+          Si tu casa está en un casco histórico, te ayudamos con lo que pide el ayuntamiento antes de empezar. Desmontamos lo viejo, colocamos lo nuevo y rematamos los huecos para que no se note la obra.
+      - titulo: Escaleras de madera
+        texto: "Rectas o con vuelta, macizas o forrando una de obra, con barandilla torneada o lisa."
+        madera: "Pino melis, roble o haya"
+        plazo: "6 semanas"
+        precio: "Consultar"
+        imagen: /fotos/trabajo-escalera.jpg
+        imagenes: ""
+        detalle: |
+          Una escalera se pisa cada día y tiene que sonar firme. Venimos a medir el hueco, la altura entre plantas y el espacio que hay para el arranque, y te proponemos el trazado más cómodo: recta, con meseta o con peldaños de vuelta.
+
+          Podemos hacerla entera de madera maciza o forrar una escalera de obra con huella y contrahuella. La barandilla, con balaustres torneados como las de antes o lisa y sencilla. Las piezas se cortan y se ensamblan en el taller, y se montan en casa en pocos días.
+
+          Al terminar damos el acabado, aceite o barniz al agua, pensando en el paso: que no resbale y que aguante los años.
+      - titulo: Muebles a medida
+        texto: "Mesas, aparadores, librerías y bancos pensados para tu casa y para durar."
+        madera: "Nogal, roble o cerezo"
+        plazo: "3 a 6 semanas"
+        precio: ""
+        imagen: /fotos/trabajo-mesa.jpg
+        imagenes: ""
+        detalle: ""
+      - titulo: Restauración de muebles
+        texto: "Recuperamos cómodas, arcones y sillas de la familia: encolado, piezas nuevas y acabado a la cera."
+        madera: "La del mueble"
+        plazo: "Según el mueble"
+        precio: "Consultar"
+        imagen: /fotos/trabajo-restauracion.jpg
+        imagenes: ""
+        detalle: ""
+
+  trabajos:
+    activa: true
+    antetitulo: Trabajos hechos
+    titulo: Piezas que ya están en su casa
+    texto: "Algunos encargos de los últimos meses, fotografiados el día que los montamos."
+    trabajos:
+      - { titulo: Cocina de roble para una casa de pueblo, tipo: Cocina, lugar: Calanda, madera: "Roble al aceite", texto: "Frentes de cuarterones, alacena hasta el techo y mesa a juego.", imagen: /fotos/trabajo-cocina.jpg }
+      - { titulo: Armario empotrado de suelo a techo, tipo: Armario, lugar: Alcañiz, madera: "Roble claro", texto: "Cuatro puertas lisas y dentro, cajones y barras a dos alturas.", imagen: /fotos/trabajo-armario.jpg }
+      - { titulo: Escalera de una casa de piedra, tipo: Escalera, lugar: Valderrobres, madera: "Pino melis", texto: "Peldaños macizos y barandilla de balaustres torneados.", imagen: /fotos/trabajo-escalera.jpg }
+      - { titulo: Puerta y ventanas para una fachada antigua, tipo: Puertas y ventanas, lugar: Castelserás, madera: "Castaño", texto: "Copiadas de las originales, con doble cristal y clavos de forja.", imagen: /fotos/trabajo-ventanas.jpg }
+      - { titulo: Mesa de comedor para ocho, tipo: Mueble, lugar: Caspe, madera: "Nogal macizo", texto: "Tablero de cuatro centímetros y patas con ensamble a la vista.", imagen: /fotos/trabajo-mesa.jpg }
+      - { titulo: "Cómoda de la abuela, otra vez en uso", tipo: Restauración, lugar: Alcorisa, madera: "Nogal con marquetería", texto: "Encolada, con un cajón nuevo y acabada a la cera.", imagen: /fotos/trabajo-restauracion.jpg }
+
+  proceso:
+    activa: true
+    antetitulo: Cómo se encarga
+    titulo: De la medida a tu casa en unas siete semanas
+    texto: "Contado desde el día que vamos a medir. Sabes en cada momento qué toca y cuándo llega."
+    nota: "Depende de la pieza: un armario puede estar antes y una cocina grande tarda algo más."
+    items:
+      - { titulo: Visita y medida, texto: "Vamos a tu casa, medimos y vemos contigo la madera y el acabado.", semanas: "0" }
+      - { titulo: Dibujo y presupuesto, texto: "Te damos el dibujo de la pieza y el precio cerrado por escrito.", semanas: "1" }
+      - { titulo: En el taller, texto: "Elegimos los tablones, cortamos, ensamblamos y damos el acabado.", semanas: "2-6" }
+      - { titulo: Montaje en tu casa, texto: "La montamos nosotros, la ajustamos y nos llevamos los restos.", semanas: "7" }
+
+  maderas:
+    activa: true
+    antetitulo: Las maderas
+    titulo: Cada pieza, con su madera
+    texto: "Te enseñamos muestras en el taller o en tu casa. Estas son las que más usamos."
+    imagen: /fotos/maderas.jpg
+    maderas:
+      - { nombre: Roble, uso: "Cocinas, puertas, escaleras y suelos", caracter: "Dura, de veta marcada y tono miel que oscurece con los años" }
+      - { nombre: Nogal, uso: "Mesas, aparadores y muebles de salón", caracter: "Oscura y fina al tacto; la más noble para un mueble" }
+      - { nombre: Pino melis, uso: "Escaleras, vigas y carpintería de fuera", caracter: "Resinosa y muy resistente; aguanta la intemperie" }
+      - { nombre: Castaño, uso: "Puertas de entrada, ventanas y vigas", caracter: "Parecida al roble, más ligera y fácil de trabajar" }
+      - { nombre: Cerezo, uso: "Cocinas, cabeceros y muebles pequeños", caracter: "Rojiza y cálida; gana color con la luz" }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que dicen al ver su pieza montada
+    testimonios:
+      - { texto: "La cocina es exactamente la que dibujaron. Encajaron los muebles en una pared que no tenía nada recto y no se nota.", autor: Pilar y Ramón, nota: "Cocina de roble, Calanda" }
+      - { texto: "Copiaron las ventanas viejas de la casa con doble cristal. Por fuera parecen las de siempre y ya no entra el frío.", autor: Andrés M., nota: "Ventanas de castaño, Valderrobres" }
+      - { texto: "Restauraron la cómoda de mi abuela y le hicieron un cajón nuevo. Está mejor que cuando la recuerdo.", autor: Teresa G., nota: "Restauración, Alcorisa" }
+
+  taller:
+    activa: true
+    antetitulo: El taller
+    titulo: El mismo banco desde 1979
+    desde: "1979"
+    texto: |
+      El taller lo abrió nuestro padre en Alcañiz haciendo puertas y ventanas para las casas de la comarca. Hoy seguimos los dos hermanos, con dos oficiales que aprendieron aquí.
+
+      Trabajamos con maquinaria de ahora, pero los ensambles y los acabados se siguen haciendo a mano, como nos enseñaron.
+    imagen: /fotos/taller.jpg
+    items:
+      - { titulo: Madera seca de verdad, texto: "Secamos los tablones en el taller antes de usarlos, para que la pieza no se mueva." }
+      - { titulo: Ensambles a mano, texto: "Cola de milano, caja y espiga: uniones que aguantan sin depender del tornillo." }
+      - { titulo: Acabados que respiran, texto: "Aceite, cera o barniz al agua, según el uso que vaya a tener." }
+
+  zonas:
+    activa: true
+    titulo_pagina: "Carpintería a medida en {zona}"
+    texto_pagina: "En {negocio} medimos, hacemos en el taller y montamos en tu casa: cocinas, armarios, puertas, ventanas y escaleras de madera maciza."
+    antetitulo: Dónde montamos
+    titulo: Alcañiz y todo el Bajo Aragón
+    texto: "Vamos a medir y a montar a menos de una hora del taller. Si tu pueblo no está en la lista, pregúntanos."
+    items:
+      - titulo: Alcañiz
+        texto: "Aquí está el taller y aquí hacemos la mayoría de los encargos: cocinas y armarios para pisos del ensanche, puertas y ventanas para las casas del casco antiguo y escaleras para viviendas que se rehabilitan. Venir a medir no nos cuesta nada, porque estamos a pocos minutos, y si quieres puedes pasar por el taller a ver la madera y los acabados antes de decidir. También trabajamos en los barrios y masías del término municipal."
+      - titulo: Caspe
+        texto: "En Caspe hacemos muebles a medida, armarios empotrados y carpintería de fuera para casas cerca del pantano, donde la madera tiene que aguantar sol y humedad. Para esas piezas recomendamos pino melis o castaño con un acabado pensado para la intemperie. Vamos a medir y te dejamos el presupuesto por escrito, y el día del montaje venimos con todo preparado para terminar cuanto antes."
+      - titulo: Calanda
+        texto: "En Calanda hemos hecho cocinas de roble para casas de pueblo, armarios y puertas de paso que siguen el estilo de la vivienda. Muchas casas tienen paredes gruesas y nada a escuadra, así que medimos con calma y ajustamos cada pieza en obra para que quede como si siempre hubiera estado ahí. Trabajamos también en Foz-Calanda y Castelserás."
+      - titulo: Valderrobres
+        texto: "En Valderrobres y el Matarraña nos llaman sobre todo para rehabilitaciones de casas de piedra: escaleras macizas, vigas vistas, puertas de entrada y ventanas con contraventana que respetan la fachada. Si la casa está en el casco histórico, te contamos qué suele pedir el ayuntamiento antes de empezar. Subimos a medir sin coste y te enseñamos muestras de madera allí mismo."
+      - { titulo: Andorra }
+      - { titulo: Híjar }
+      - { titulo: Alcorisa }
+      - { titulo: Castelserás }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntáis antes de encargar
+    preguntas:
+      - { pregunta: "¿Cuánto cuesta un mueble a medida?", respuesta: "Depende de la madera, del tamaño y de los herrajes. En cada servicio te damos un precio de partida; después de medir te dejamos el precio cerrado por escrito y no cambia." }
+      - { pregunta: "¿Cuánto se tarda desde que lo encargo?", respuesta: "Entre cuatro y ocho semanas según la pieza. Te damos la fecha de montaje con el presupuesto y te avisamos unos días antes." }
+      - { pregunta: "¿Venís a medir a casa?", respuesta: "Sí, y no cobramos la visita en Alcañiz y el Bajo Aragón. Si vives más lejos, te decimos antes lo que cuesta el desplazamiento." }
+      - { pregunta: "¿Trabajáis solo madera maciza?", respuesta: "Casi siempre. Para el interior de armarios y algunas cocinas usamos tablero rechapado de calidad, y te lo decimos en el presupuesto." }
+      - { pregunta: "¿Hacéis tarimas, vigas o cubiertas?", respuesta: "Sí: tarima maciza, vigas vistas y aleros de madera en rehabilitaciones. Cuéntanos la obra y vamos a verla." }
+      - { pregunta: "¿Restauráis muebles antiguos?", respuesta: "Sí. Encolamos, rehacemos piezas que faltan y damos un acabado a la cera o al aceite que respeta el mueble. Tráelo al taller o te lo recogemos." }
+
+  presupuesto:
+    activa: true
+    antetitulo: Presupuesto sin compromiso
+    titulo: Cuéntanos qué pieza necesitas
+    texto: "Déjanos tu nombre y tu teléfono y te llamamos. Si tienes fotos o medidas del hueco, mándalas por WhatsApp."
+    nota: "Sin compromiso. Te contestamos en el día."
+    boton_formulario: Pedir presupuesto
+    items:
+      - { titulo: Nos cuentas la idea, texto: "Por aquí, por teléfono o por WhatsApp, con fotos si las tienes." }
+      - { titulo: Vamos a medir, texto: "Sin coste en el Bajo Aragón, el día que te venga bien." }
+      - { titulo: Precio cerrado por escrito, texto: "Con la madera, el acabado y la fecha de montaje." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Ven a ver la madera al taller
+    texto: "Si estamos montando y no lo cogemos, te devolvemos la llamada en cuanto salgamos."
+    imagen: /fotos/contacto.jpg
